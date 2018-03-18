@@ -14,8 +14,8 @@ Checkdomain
 
 1. git clone https://github.com/Imanfeng/checkdomain.git
 2. cd checkdomain
-3.     python checkDomain.py -h
-       
+3. 默认端口：80 
+4.     python checkDomain.py -h
        
         ██████╗██╗  ██╗██████╗  ██████╗ ███╗   ███╗ █████╗ ██╗███╗   ██╗
        ██╔════╝██║ ██╔╝██╔══██╗██╔═══██╗████╗ ████║██╔══██╗██║████╗  ██║
