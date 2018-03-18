@@ -7,8 +7,8 @@ Checkdomain
 要求
 
 - python 2.7
-- 读取子域名的文件推荐搭配生成lijiejie
-  
+- 读取子域名的文件推荐搭配lijiejie的
+  subdoamin生成
 
 使用
 
