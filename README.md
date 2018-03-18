@@ -12,9 +12,9 @@
 
 ## 使用
 
-1. git clone https://github.com/Imanfeng/checkdomain.git
-2. cd checkdomain
-3. 默认端口：80 
+1. `git clone https://github.com/Imanfeng/checkdomain.git`
+2. `cd checkdomain`
+3. `默认端口：80 `
 4.     python checkDomain.py -h
        
         ██████╗██╗  ██╗██████╗  ██████╗ ███╗   ███╗ █████╗ ██╗███╗   ██╗
@@ -38,4 +38,4 @@
          -o , --outfile   save a file
    
 ## 版本
-- v1.0 支持读取指定格式域名文件，指定单一端口扫描，指定文件输出
+- v-1.0 支持读取指定格式域名文件，指定单一端口扫描，指定文件输出
