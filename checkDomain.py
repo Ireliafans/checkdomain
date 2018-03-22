@@ -2,12 +2,9 @@
 #coding:utf-8
 import argparse
 import sys
-import os
 import re
-import urllib2
 import requests
 import threading
-import datetime
 
 
 
