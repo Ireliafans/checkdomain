@@ -24,12 +24,12 @@ def banner():
  ╚═════╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
                                                                  %s%s
 
-                V-1.0 # Coded By Imanfeng 
+                V-2.0 # Coded By Imanfeng 
         """ % (R, W, Y))
 
 
 def parse_args():#命令定义
-    parser = argparse.ArgumentParser(description='checkDomain v 1.0 to check a txt subdoamins which is open port.')
+    parser = argparse.ArgumentParser(description='Example:python checkDomain.py -f alimama.txt -p 80,8080')
     parser.error=parse_error
     parser._optionals.title='OPTIONS'
     parser.add_argument('-p','--port',metavar="",default='80',help='choose a port or ports')
@@ -54,8 +54,10 @@ def open_file(filename):#读取域名文件
     for eachline in files:
         #print eachline
     	line1,line2 = re.split('\s\s+|\t',eachline.strip())
+        line2 = line2.split(",")
+        subdomain = line2 + subdomain       
         subdomain.append(line1)
-        subdomain.append(line2)
+        
     return subdomain
 
 
