@@ -6,6 +6,10 @@ import os
 import re
 import urllib2
 import requests
+import threading
+import datetime
+
+
 
 def banner():
     G = '\033[92m'  # green
@@ -33,8 +37,7 @@ def parse_args():#命令定义
     parser._optionals.title='OPTIONS'
     parser.add_argument('-p','--port',metavar="",default='80',help='choose a port or ports')
     parser.add_argument('-f','--file',metavar="",default='',help='choose a subdomain txt')
-    parser.add_argument('-o','--outfile',metavar="",default='out.txt',help='save a file')
-    #parser.add_argument('-t','--threads',metavar="",default=16,help='thread count')
+    parser.add_argument('-o','--outfile',metavar="",default='',help='save a file')
     return parser.parse_args()
 
 
@@ -59,39 +62,50 @@ def open_file(filename):#读取域名文件
     return subdomain
 
 
-def check_state(subdomain_ip,port):#检查主机状态
-    print '\033[92m'+'[STRAT..]'
-    intersting=[]
-    for i,this_ip in enumerate(subdomain_ip):
-        url="http://{}:{}".format(this_ip,port)
-        #print url 
+def check_state(i,port,subdomain_ip):#检查主机状态
+    ports = port.split(",")
+    for port in ports:
+        url = "http://%s:%s"%(subdomain_ip,port)
         try:
-            r = requests.get(url)
+            r = requests.get(url,timeout=4)
             status = r.status_code
             if status in {200,301}:
-                print ("\033[91m")
-                print "Interesting:{}".format(this_ip)
-                intersting.append(this_ip)
-
+                print "\033[91m[Interesting]:{}:{}".format(subdomain_ip,port)
+                intersting.append(subdomain_ip)
         except:
-            print '\033[0m'
-            print "Down:{}".format(this_ip)
-            pass
-    return intersting
+            print "\033[0m[Down]:{}:{}".format(subdomain_ip,port)
 
 
-def write(ip,filename):
+def write(ip,infilename,filename):#写进文件
+    filename == ''
+    filename = 'out.'+infilename
     file = open(filename,'w')
     for i,this_ip in enumerate(ip):
         file.writelines(['%d-----------%s\n' % (i+1,this_ip)])
     file.close()
 
 
-def main(port,infile,outfile):
+def go_threading(nums,port,subdomain_ip):#调用多线程
+    global intersting
+    intersting = []
+    threads = []
+    for i in nums:
+        t = threading.Thread(target=check_state,args=(i,port,subdomain_ip[i]))
+        threads.append(t)
+    print '\033[1;32m[STRAT..]\n'
+    for i in nums:
+        threads[i].start()
+    for i in nums:
+        threads[i].join()
+    print '\n\033[1;32m[DONE..]'
+
+
+def main(port,infile,outfile): 
     subdomain_ip = open_file(infile)
     subdomain_ip = list(set(subdomain_ip))#去重ip/域名
-    intersting = check_state(subdomain_ip,port)
-    write(intersting,outfile)
+    nums = range(len(subdomain_ip))
+    go_threading(nums,port,subdomain_ip)
+    write(intersting,infile,outfile)
 
 
 if __name__ == '__main__':
@@ -100,7 +114,6 @@ if __name__ == '__main__':
     port = args.port
     infile = args.file
     outfile = args.outfile
-    #threads = args.threads
     main(port,infile,outfile)
     
     
