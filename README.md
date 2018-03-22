@@ -14,7 +14,7 @@
 
 1. `git clone https://github.com/Imanfeng/checkdomain.git`
 2. `cd checkdomain`
-3. `默认端口：80 `
+3. `选择端口:-p 80,8080...(默认端口：80) `
 4.     python checkDomain.py -h
        
         ██████╗██╗  ██╗██████╗  ██████╗ ███╗   ███╗ █████╗ ██╗███╗   ██╗
@@ -25,7 +25,7 @@
         ╚═════╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
        
        
-                       V-1.0 # Coded By Imanfeng
+                       V-2.0 # Coded By Imanfeng
        
        usage: checkDomain.py [-h] [-p] [-f] [-o]
        
@@ -38,4 +38,5 @@
          -o , --outfile   save a file
    
 ## 版本
-- v-1.0 支持读取指定格式域名文件，指定单一端口扫描，指定文件输出
+- v-1.0 支持读取指定格式子域名文件，指定单端口单线程扫描，默认文件输出
+- v-2.0 支持读取制定格式子域名文件，多端口多线程扫描扫描，默认输出为out.xxx.txt
